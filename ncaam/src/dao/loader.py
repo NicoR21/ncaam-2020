@@ -32,7 +32,7 @@ class Loader:  # Nom de classe separe par une majuscule
                 df = pd.read_csv(f"{data_path}/{PLAY_BY_PLAY}_{STAGE}2/{EVENTS_TABLE}{y}.csv")
                 events_df = pd.concat([events_df, df], ignore_index=True)
         else:
-
+            pass
 
         return events_df
 
