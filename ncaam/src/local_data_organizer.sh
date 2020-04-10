@@ -4,9 +4,9 @@ unzip ./ncaam/resources/data/google-cloud-ncaa-march-madness-2020-division-1-men
 if [ ! -d ./ncaam/resources/data/MPlayByPlay_Stage1 ]; then
     mkdir -p ./ncaam/resources/data/MPlayByPlay_Stage1
 fi
-mv ./ncaam/resources/data/MEvents2015.csv ./resources/data/MPlayByPlay_Stage1
-mv ./ncaam/resources/data/MEvents2016.csv ./resources/data/MPlayByPlay_Stage1
-mv ./ncaam/resources/data/MEvents2017.csv ./resources/data/MPlayByPlay_Stage1
-mv ./ncaam/resources/data/MEvents2018.csv ./resources/data/MPlayByPlay_Stage1
-mv ./ncaam/resources/data/MEvents2019.csv ./resources/data/MPlayByPlay_Stage1
-mv ./ncaam/resources/data/MPlayers.csv ./resources/data/MPlayByPlay_Stage1
+mv ./ncaam/resources/data/MEvents2015.csv ./ncaam/resources/data/MPlayByPlay_Stage1
+mv ./ncaam/resources/data/MEvents2016.csv ./ncaam/resources/data/MPlayByPlay_Stage1
+mv ./ncaam/resources/data/MEvents2017.csv ./ncaam/resources/data/MPlayByPlay_Stage1
+mv ./ncaam/resources/data/MEvents2018.csv ./ncaam/resources/data/MPlayByPlay_Stage1
+mv ./ncaam/resources/data/MEvents2019.csv ./ncaam/resources/data/MPlayByPlay_Stage1
+mv ./ncaam/resources/data/MPlayers.csv ./ncaam/resources/data/MPlayByPlay_Stage1
