@@ -1,3 +1,4 @@
+import glob
 from pathlib import Path
 
 import pandas as pd
@@ -5,22 +6,24 @@ import pandas as pd
 from ncaam.src.constants import DATA_PATH, DATA_FILES, PLAY_BY_PLAY, STAGE, \
     EVENTS_TABLE, PLAYERS_TABLE, CITIES_TABLE, CONFERENCES_TABLE
 
+DESIRED_TABLES: list = [PLAYERS_TABLE, CITIES_TABLE, CONFERENCES_TABLE]
+
 
 class Loader:  # Nom de classe separe par une majuscule
     def __init__(self, local: bool = True) -> None:
         self.local = local
 
-    def import_data(self, desired_tables: list = ["events", "players", "cities"]) -> (pd.DataFrame, pd.DataFrame):
+    def import_data(self, desired_tables: list = DESIRED_TABLES) -> dict:
         data = {}
         if self.local:
-            if "events" in desired_tables:
-                data["events"] = self._import_events()
-            if "players" in desired_tables:
-                data["players"] = self._import_players()
-            if "cities" in desired_tables:
-                data["cities"] = self._import_data_file(CITIES_TABLE)
-            if "conferences" in desired_tables:
-                data["conferences"] = self._import_data_file(CONFERENCES_TABLE)
+            data_files_tables = [table for table in desired_tables if table not in [EVENTS_TABLE, PLAYERS_TABLE]]
+            if EVENTS_TABLE in desired_tables:
+                data[EVENTS_TABLE.lower()] = self._import_events()
+            if PLAYERS_TABLE in desired_tables:
+                data[PLAYERS_TABLE.lower()] = self._import_players()
+            if data_files_tables:
+                data_files = self._import_data_file(data_files_tables)
+                data.update(data_files)
 
         return data
 
@@ -41,10 +44,21 @@ class Loader:  # Nom de classe separe par une majuscule
             data_path = self._get_loading_path()
             return pd.read_csv(f"{data_path}/{PLAY_BY_PLAY}_{STAGE}2/{PLAYERS_TABLE}.csv")
 
-    def _import_data_file(self, table_name: str) -> pd.DataFrame:
+    def _import_data_file(self, data_files_tables: list) -> dict:
+        data_files = {}
+
         if self.local:
             data_path = self._get_loading_path()
-            return pd.read_csv(f"{data_path}/{DATA_FILES}_{STAGE}2/{table_name}.csv")
+            all_data_files_tables = glob.glob(f"{data_path}/{DATA_FILES}_{STAGE}2/*.csv")
+            desired_data_files_tables = [table for table in all_data_files_tables if
+                                         table.split("\\")[-1].split(".csv")[0] in data_files_tables]
+            for table in desired_data_files_tables:
+                table_name = table.split("\\")[-1].split(".csv")[0].lower()
+                data_files[table_name] = pd.read_csv(table)
+        else:
+            pass
+
+        return data_files
 
     @staticmethod
     def _get_loading_path() -> str:
