@@ -18,9 +18,9 @@ class Loader:  # Nom de classe separe par une majuscule
         if self.local:
             data_files_tables = [table for table in desired_tables if table not in [EVENTS_TABLE, PLAYERS_TABLE]]
             if EVENTS_TABLE in desired_tables:
-                data[EVENTS_TABLE.lower()] = self._import_events()
+                data[EVENTS_TABLE] = self._import_events()
             if PLAYERS_TABLE in desired_tables:
-                data[PLAYERS_TABLE.lower()] = self._import_players()
+                data[PLAYERS_TABLE] = self._import_players()
             if data_files_tables:
                 data_files = self._import_data_file(data_files_tables)
                 data.update(data_files)
@@ -53,7 +53,7 @@ class Loader:  # Nom de classe separe par une majuscule
             desired_data_files_tables = [table for table in all_data_files_tables if
                                          table.split("\\")[-1].split(".csv")[0] in data_files_tables]
             for table in desired_data_files_tables:
-                table_name = table.split("\\")[-1].split(".csv")[0].lower()
+                table_name = table.split("\\")[-1].split(".csv")[0]
                 data_files[table_name] = pd.read_csv(table)
         else:
             pass
