@@ -38,6 +38,38 @@ EVENTS_FILE = "MEvents.csv"
 PLAYERS_FILE = "MPlayers.csv"
 
 
-ENV_FILE='./env.yaml'
-with open(ENV_FILE) as f:
-    params = yaml.load(f, Loader=yaml.FullLoader)
+#ENV_FILE='./env.yaml'
+#with open(ENV_FILE) as f:
+#    params = yaml.load(f, Loader=yaml.FullLoader)
+
+# Colors of text and background
+colors = {
+    'background': '#FFBB55',
+    'text': '#2255FF'
+}
+
+app = dash.Dash('')
+app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+    html.H1(
+        children='National Collegiate Athletic Aassociation Men 2020 (NCAAM) - Explorer',
+        style={
+            'textAlign': 'center',
+            'color': colors['text']
+        }
+    ),
+
+    html.Div(children='Players Individual Statistics : 2015-2020', style={
+        'textAlign': 'center',
+        'color': colors['text']
+    })
+])
+
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    app.run_server(debug=True)
