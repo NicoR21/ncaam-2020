@@ -13,5 +13,5 @@ kaggle competitions download -c google-cloud-ncaa-march-madness-2020-division-1-
 Run the following command from the project root, to organize *.csv* samples: 
 
 ```bash
-./ncaam/src/local_data_organizer.sh 
+./ncaam/src/local_data_organizer.sh
 ```
