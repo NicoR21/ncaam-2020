@@ -66,7 +66,9 @@ class Loader:  # Nom de classe separe par une majuscule
                                          table.split("/")[-1].split(".csv")[0] in data_files_tables]
             for table in desired_data_files_tables:
                 table_name = table.split("/")[-1].split(".csv")[0]
-                data_files[table_name] = pd.read_csv(table)
+                data_files[table_name] = pd.read_csv(table) if table_name != MTEAM_SPELLING_TABLE else pd.read_csv(
+                    table, encoding="ISO-8859-1")
+                # ou ("\\") sur windows
         else:
             pass
 
